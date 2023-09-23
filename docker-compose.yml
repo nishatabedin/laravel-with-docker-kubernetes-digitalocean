@@ -39,7 +39,13 @@ services:
       - "8081:80"
     links:
       - db
+  
+  redis:
+    image: redis
+    volumes:
+      - redisdata:/data
 
 
 volumes:
   mysqldata:
+  redisdata:
