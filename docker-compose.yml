@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3'
 
 services:
   php:
@@ -6,7 +6,6 @@ services:
       context: .
     volumes:
       - ./:/var/www/html
-
 
   web:
     image: nginx
@@ -17,3 +16,30 @@ services:
     ports:
       - "80:80"
 
+
+  db:
+    image: mariadb:10.3
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_DATABASE: "${DB_DATABASE}"
+      MYSQL_USER: "${DB_USERNAME}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+    volumes:
+      - mysqldata:/var/lib/mysql
+
+
+  phpmyadmin:
+    image: phpmyadmin
+    environment:
+      PMA_ARBITRARY: 1
+    ports:
+      - "8081:80"
+    links:
+      - db
+
+
+volumes:
+  mysqldata:

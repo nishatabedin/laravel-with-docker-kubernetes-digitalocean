@@ -30,3 +30,18 @@ Route::get('/dummy', function () {
 
     return response()->json($dummyData);
 });
+
+
+Route::get('/dummy-from-db', function () {
+    $dummyData = [
+        'message' => 'This is a dummy API response with data from DB',
+        'data' => [
+            'users' => DB::table('users')->get(),
+        ],
+    ];
+    return response()->json($dummyData);
+});
+
+
+
+
