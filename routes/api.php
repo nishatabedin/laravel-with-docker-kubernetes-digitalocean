@@ -17,3 +17,16 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/dummy', function () {
+    $dummyData = [
+        'message' => 'This is a dummy API response.',
+        'data' => [
+            'foo' => 'bar',
+            'baz' => 'qux',
+        ],
+    ];
+
+    return response()->json($dummyData);
+});
